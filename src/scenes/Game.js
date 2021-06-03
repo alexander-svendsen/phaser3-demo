@@ -11,51 +11,52 @@ export default class Game extends Phaser.Scene {
 
     cursors;
     player;
+    pickups;
     jumped = false;
     squashAnimationPlaying = false;
+    scoreText;
+    enemies;
+    score = 0
+    gameOver = false
 
     constructor() {
         super('game');
     }
 
-
     preload () {
         this.cursors = this.input.keyboard.createCursorKeys()
     }
 
-    collectStar (player, star)
+    collectPickup (player, pickup)
     {
-        star.disableBody(true, true);
+        pickup.disableBody(true, true);
 
         this.score += 10;
-        scoreText.setText('Score: ' + score);
+        this.scoreText.setText('Score: ' + this.score);
 
-        if (stars.countActive(true) === 0)
+        if (this.pickups.countActive(true) === 0)
         {
-            stars.children.iterate(function (child) {
-
+            this.pickups.children.iterate(function (child) {
                 child.enableBody(true, child.x, 0, true, true);
-
             });
 
-            var x = (player.x < 400) ? Phaser.Math.Between(400, 800) : Phaser.Math.Between(0, 400);
+            var x = (this.player.x < 200) ? Phaser.Math.Between(200, 400) : Phaser.Math.Between(0, 200);
 
-            var bomb = bombs.create(x, 16, 'bomb');
-            bomb.setBounce(1);
-            bomb.setCollideWorldBounds(true);
-            bomb.setVelocity(Phaser.Math.Between(-200, 200), 20);
+
+            const enemy = this.enemies.create(x, 16, 'enemy');
+            enemy.anims.play('enemy-anim', true)
+            enemy.setBounce(1);
+            enemy.body.setAllowGravity(false)
+            enemy.setCollideWorldBounds(true);
+            enemy.setVelocity(Phaser.Math.Between(-100, 100), Phaser.Math.Between(-100,100));
 
         }
     }
 
-    hitBomb (player, bomb)
-    {
+    hitByEnemy (player, enemy) {
         this.physics.pause();
-
+        this.anims.pauseAll()
         player.setTint(0xff0000);
-
-        player.anims.play('turn');
-
         this.gameOver = true;
     }
 
@@ -103,38 +104,46 @@ export default class Game extends Phaser.Scene {
             frameRate: 4
         })
 
-
+        this.anims.create({
+            key: 'enemy-anim',
+            frames: this.anims.generateFrameNames('enemy', {start: 1, end: 12, prefix: '', suffix: '.png'}),
+            repeat: -1,
+            frameRate: 4
+        })
 
         this.player.anims.play('player-idle')
 
-        /*
-        stars = this.physics.add.group({
-            key: 'star',
+        this.pickups = this.physics.add.group({
+            key: 'pickup',
             repeat: 11,
-            setXY: { x: 12, y: 0, stepX: 70 }
+            setXY: { x: 6, y: 0, stepX: 35 }
         });
 
-        stars.children.iterate(function (child) {
-
-            child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
-
+        this.pickups.children.iterate(function (child) {
+            child.setBounceY(Phaser.Math.FloatBetween(0.2, 0.4));
         });
 
-        this.physics.add.collider(stars, platforms);
-        this.physics.add.overlap(player, stars, collectStar, null, this);
-        scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
+        this.physics.add.collider(this.pickups, platformLayer);
+        this.physics.add.overlap(this.player, this.pickups, this.collectPickup, null, this);
 
 
-        bombs = this.physics.add.group();
+        this.scoreText = this.add.text(16, 16, 'Score: 0', { fontFamily:'ps2p', fontSize: '8px', fill: '#fff' });
 
-        this.physics.add.collider(bombs, platforms);
+        this.enemies = this.physics.add.group();
+        this.physics.add.collider(this.enemies, platformLayer);
+        this.physics.add.collider(this.player, this.enemies, this.hitByEnemy, null, this);
 
-        this.physics.add.collider(player, bombs, hitBomb, null, this);*/
+        const enemy = this.enemies.create(350, 16, 'enemy');
+        enemy.anims.play('enemy-anim', true)
+        enemy.setBounce(1);
+        enemy.body.setAllowGravity(false)
+        enemy.setCollideWorldBounds(true);
+        enemy.setVelocity(Phaser.Math.Between(-100, 100), Phaser.Math.Between(-100,100));
 
     }
 
     update(){
-        if(!this.cursors || !this.player){
+        if(!this.cursors || !this.player || this.gameOver){
             return;
         }
 
@@ -168,7 +177,6 @@ export default class Game extends Phaser.Scene {
                     this.player.anims.play('player-run', true);
                 }
             }
-
         }
         else if (!this.player.body.onFloor()) {
             this.player.setVelocityX(0);
