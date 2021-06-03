@@ -1,22 +1,39 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <style>
-      html, body {
-        background-color: rgba(29, 33, 45, 1);
-      }
+        @font-face {
+            font-family: ps2p;
+            src: url('src/assets/font/PressStart2P-Regular.ttf');
+        }
 
-      canvas {
-        border: 5px solid rgba(51, 55, 67, 1);
-        padding-left: 0;
-        padding-right: 0;
-        margin-left: auto;
-        margin-right: auto;
-        display: block;
-      }
+        html, body {
+            background-color: rgba(29, 33, 45, 1);
+        }
+
+        canvas {
+            border: 5px solid rgba(51, 55, 67, 1);
+            padding-left: 0;
+            padding-right: 0;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+        }
+        .info {
+            margin: 0 auto;
+            font-family:ps2p;
+            color: #fff;
+            text-align: center;
+            padding-bottom: 20px
+        }
+
     </style>
     <meta charset="utf-8">
-  </head>
-  <body>
-  <script type="text/javascript" src="bundle.min.js"></script></body>
+</head>
+<body>
+<div class="info">
+    <p>Pick op the red dots and avoid the spawning enemies</p>
+    <p>How big can you go =)</p>
+</div>
+<script type="text/javascript" src="bundle.min.js"></script></body>
 </html>
