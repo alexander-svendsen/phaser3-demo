@@ -2,10 +2,10 @@ import Phaser from 'phaser'
 import asset from '../assets/spreadsheet.png'
 import pickup from '../assets/pickup.png'
 import level from '../assets/level-01.json'
-import textureCharacterPng from '../assets/character/texture.png'
-import textureEnemyPng from '../assets/enemy/texture.png'
-import textureCharacterJson from '../assets/character/texture.json'
-import textureEnemyJson from '../assets/enemy/texture.json'
+import textureCharacterPng from '../assets/character/characterTexture.png'
+import textureEnemyPng from '../assets/enemy/enemyTexture.png'
+import textureCharacterJson from '../assets/character/characterTexture.json'
+import textureEnemyJson from '../assets/enemy/enemyTexture.json'
 
 export default class Preloader extends Phaser.Scene {
     constructor() {
