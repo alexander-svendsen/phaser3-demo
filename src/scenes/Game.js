@@ -128,6 +128,7 @@ export default class Game extends Phaser.Scene {
 
 
         this.scoreText = this.add.text(16, 16, 'Score: 0', { fontFamily:'ps2p', fontSize: '8px', fill: '#fff' });
+        this.add.text(240, 310, 'Hit space to restart', { fontFamily:'ps2p', fontSize: '8px', fill: '#fff' });
 
         this.enemies = this.physics.add.group();
         this.physics.add.collider(this.enemies, platformLayer);
@@ -143,9 +144,19 @@ export default class Game extends Phaser.Scene {
     }
 
     update(){
-        if(!this.cursors || !this.player || this.gameOver){
+
+        if(!this.cursors || !this.player){
             return;
         }
+
+        if(this.cursors.space.isDown){
+            this.scene.restart()
+        }
+
+        if(this.gameOver){
+            return
+        }
+
 
         const speed = 100
 
