@@ -203,7 +203,7 @@ export default class Game extends Phaser.Scene {
         }
 
         if (this.cursors.up.isDown && this.player.body.onFloor()) {
-            this.player.setVelocityY(-200);
+            this.player.setVelocityY(-285);
         }
 
         if(!this.player.body.onFloor()){
