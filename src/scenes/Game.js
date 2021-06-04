@@ -40,15 +40,8 @@ export default class Game extends Phaser.Scene {
                 child.enableBody(true, child.x, 0, true, true);
             });
 
-            var x = (this.player.x < 200) ? Phaser.Math.Between(200, 400) : Phaser.Math.Between(0, 200);
-
-
-            const enemy = this.enemies.create(x, 16, 'enemy');
-            enemy.anims.play('enemy-anim', true)
-            enemy.setBounce(1);
-            enemy.body.setAllowGravity(false)
-            enemy.setCollideWorldBounds(true);
-            enemy.setVelocity(Phaser.Math.Between(-100, 100), Phaser.Math.Between(-100,100));
+            const x = (this.player.x < 200) ? Phaser.Math.Between(200, 400) : Phaser.Math.Between(0, 200);
+            this.spawnEnemy(x)
 
         }
     }
@@ -58,6 +51,16 @@ export default class Game extends Phaser.Scene {
         this.anims.pauseAll();
         player.setTint(0xff0000);
         this.gameOver = true;
+    }
+
+    spawnEnemy(x){
+        const enemy = this.enemies.create(x, 16, 'enemy');
+        enemy.body.setSize(9,9)
+        enemy.anims.play('enemy-anim', true)
+        enemy.setBounce(1);
+        enemy.body.setAllowGravity(false)
+        enemy.setCollideWorldBounds(true);
+        enemy.setVelocity(Phaser.Math.Between(-100, 100), Phaser.Math.Between(-100,100));
     }
 
     create () {
@@ -72,6 +75,7 @@ export default class Game extends Phaser.Scene {
         platformLayer.setCollisionByProperty({collides: true})
 
         this.player = this.physics.add.sprite(50,255, 'player','idle1.png')
+        this.player.body.setSize(10, 16)
         this.player.setCollideWorldBounds(true);
         this.physics.add.collider(this.player, platformLayer);
 
@@ -134,13 +138,7 @@ export default class Game extends Phaser.Scene {
         this.physics.add.collider(this.enemies, platformLayer);
         this.physics.add.collider(this.player, this.enemies, this.hitByEnemy, null, this);
 
-        const enemy = this.enemies.create(350, 16, 'enemy');
-        enemy.anims.play('enemy-anim', true)
-        enemy.setBounce(1);
-        enemy.body.setAllowGravity(false)
-        enemy.setCollideWorldBounds(true);
-        enemy.setVelocity(Phaser.Math.Between(-100, 100), Phaser.Math.Between(-100,100));
-
+        this.spawnEnemy(350)
     }
 
     update(){
@@ -167,7 +165,7 @@ export default class Game extends Phaser.Scene {
 
             this.player.setVelocityX(-speed);
             this.player.scaleX = -1;
-            this.player.body.offset.x = 16
+            this.player.body.offset.x = 13
 
             if(!this.squashAnimationPlaying) {
                 if (!this.player.body.onFloor()) {
@@ -181,7 +179,7 @@ export default class Game extends Phaser.Scene {
             this.player.setVelocityX(speed);
 
             this.player.scaleX = 1;
-            this.player.body.offset.x = 0
+            this.player.body.offset.x = 3
 
             if(!this.squashAnimationPlaying) {
 
