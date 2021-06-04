@@ -55,7 +55,7 @@ export default class Game extends Phaser.Scene {
 
     hitByEnemy (player, enemy) {
         this.physics.pause();
-        this.anims.pauseAll()
+        this.anims.pauseAll();
         player.setTint(0xff0000);
         this.gameOver = true;
     }
@@ -152,6 +152,7 @@ export default class Game extends Phaser.Scene {
         if(this.cursors.space.isDown){
             this.score = 0;
             this.gameOver = false;
+            this.anims.resumeAll();
             this.scene.restart();
         }
 
