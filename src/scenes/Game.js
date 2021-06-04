@@ -150,8 +150,9 @@ export default class Game extends Phaser.Scene {
         }
 
         if(this.cursors.space.isDown){
-            this.score = 0
-            this.scene.restart()
+            this.score = 0;
+            this.gameOver = false;
+            this.scene.restart();
         }
 
         if(this.gameOver){
