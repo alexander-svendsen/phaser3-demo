@@ -132,7 +132,7 @@ export default class Game extends Phaser.Scene {
 
 
         this.scoreText = this.add.text(16, 16, 'Score: 0', { fontFamily:'ps2p', fontSize: '8px', fill: '#fff' });
-        this.add.text(240, 310, 'Hit space to restart', { fontFamily:'ps2p', fontSize: '8px', fill: '#fff' });
+        const info = this.add.text(240, 310, 'Hit space to restart', { fontFamily:'ps2p', fontSize: '8px', fill: '#fff' });
 
         this.enemies = this.physics.add.group();
         this.physics.add.collider(this.enemies, platformLayer);
