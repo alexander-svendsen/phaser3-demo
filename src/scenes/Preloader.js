@@ -51,7 +51,7 @@ export default class Preloader extends Phaser.Scene {
             progressBar.fillRect(width / 2 - 96, height / 2 + 4, 192 * value, 20);
         });
 
-        this.load.on('complete', function () {
+        this.load.once('complete', function () {
             progressBar.destroy();
             progressBox.destroy();
             loadingText.destroy();
