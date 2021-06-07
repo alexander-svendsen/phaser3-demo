@@ -131,7 +131,7 @@ export default class Game extends Phaser.Scene {
         this.physics.add.overlap(this.player, this.pickups, this.collectPickup, null, this);
 
 
-        this.scoreText = this.add.bitmapText(16, 16,  'atari', 'Score: 0', 16);
+        this.scoreText = this.add.text(16, 16,  'Score: 0', { fontFamily:'"Press Start 2P"', fontSize: '8px', fill: '#fff' });
 
         this.enemies = this.physics.add.group();
         this.physics.add.collider(this.enemies, platformLayer);

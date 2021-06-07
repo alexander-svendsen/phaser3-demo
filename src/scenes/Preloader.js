@@ -8,6 +8,7 @@ import textureCharacterJson from '../assets/character/characterTexture.json'
 import textureEnemyJson from '../assets/enemy/enemyTexture.json'
 import fontXML from '../assets/font/gem.xml'
 import fontPNG from '../assets/font/gem.png'
+import WebFontFile from "../utils/WebFontFile";
 
 export default class Preloader extends Phaser.Scene {
     constructor() {
@@ -66,7 +67,7 @@ export default class Preloader extends Phaser.Scene {
         this.load.atlas('player', textureCharacterPng, textureCharacterJson)
         this.load.atlas('enemy', textureEnemyPng, textureEnemyJson)
 
-        this.load.bitmapFont('atari', fontPNG, fontXML);
+        this.load.addFile(new WebFontFile(this.load, 'Press Start 2P'))
     }
 
     create() {
