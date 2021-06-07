@@ -14,6 +14,10 @@ const config = {
             debug: false
         }
     },
+    render: {
+        antialiasGL: false,
+        pixelArt: true,
+    },
     scene: [Preloader, Game],
     scale: {
         zoom: 2

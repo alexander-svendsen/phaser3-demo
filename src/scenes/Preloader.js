@@ -6,8 +6,6 @@ import textureCharacterPng from '../assets/character/characterTexture.png'
 import textureEnemyPng from '../assets/enemy/enemyTexture.png'
 import textureCharacterJson from '../assets/character/characterTexture.json'
 import textureEnemyJson from '../assets/enemy/enemyTexture.json'
-import fontXML from '../assets/font/gem.xml'
-import fontPNG from '../assets/font/gem.png'
 import WebFontFile from "../utils/WebFontFile";
 
 export default class Preloader extends Phaser.Scene {
