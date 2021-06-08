@@ -6,6 +6,10 @@ import textureCharacterPng from '../assets/character/characterTexture.png'
 import textureEnemyPng from '../assets/enemy/enemyTexture.png'
 import textureCharacterJson from '../assets/character/characterTexture.json'
 import textureEnemyJson from '../assets/enemy/enemyTexture.json'
+import jumpSoung from '../assets/sound/jump.wav'
+import coinSoung from '../assets/sound/coin.wav'
+import explosionSound from '../assets/sound/explosion.wav'
+import song from '../assets/sound/song.mp3'
 import WebFontFile from "../utils/WebFontFile";
 
 export default class Preloader extends Phaser.Scene {
@@ -66,6 +70,10 @@ export default class Preloader extends Phaser.Scene {
         this.load.atlas('enemy', textureEnemyPng, textureEnemyJson)
 
         this.load.addFile(new WebFontFile(this.load, 'Press Start 2P'))
+        this.load.audio('jump', jumpSoung)
+        this.load.audio('coin', coinSoung)
+        this.load.audio('explosion', explosionSound)
+        this.load.audio('song', song)
     }
 
     create() {

@@ -33,6 +33,7 @@ export default class Game extends Phaser.Scene {
 
         this.score += 10;
         this.scoreText.setText('Score: ' + this.score);
+        this.sound.play('coin')
 
         if (this.pickups.countActive(true) === 0)
         {
@@ -51,6 +52,7 @@ export default class Game extends Phaser.Scene {
         this.anims.pauseAll();
         player.setTint(0xff0000);
         this.gameOver = true;
+        this.sound.play('explosion');
     }
 
     spawnEnemy(x){
@@ -65,7 +67,7 @@ export default class Game extends Phaser.Scene {
 
     create () {
         this.cameras.main.setBackgroundColor('#1d212d')
-
+        this.sound.play('song', {loop: true})
         const map = this.make.tilemap({key: 'level'})
         const tileset = map.addTilesetImage('level', 'tiles')
 
@@ -149,6 +151,7 @@ export default class Game extends Phaser.Scene {
         if(this.cursors.space.isDown){
             this.score = 0;
             this.gameOver = false;
+            this.sound.stopAll()
             this.anims.resumeAll();
             this.scene.restart();
         }
@@ -203,6 +206,7 @@ export default class Game extends Phaser.Scene {
 
         if (this.cursors.up.isDown && this.player.body.onFloor()) {
             this.player.setVelocityY(-285);
+            this.sound.play('jump', {})
         }
 
         if(!this.player.body.onFloor()){
