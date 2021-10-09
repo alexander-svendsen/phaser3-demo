@@ -67,6 +67,7 @@ export default class Game extends Phaser.Scene {
 
     create () {
         this.cameras.main.setBackgroundColor('#1d212d')
+        this.sound.setVolume(0.06)
         this.sound.play('song', {loop: true})
         const map = this.make.tilemap({key: 'level'})
         const tileset = map.addTilesetImage('level', 'tiles')
